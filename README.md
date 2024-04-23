@@ -8,3 +8,9 @@ To connect via psql to local postgres:
 ```shell
 psql -U local-db -d local-db -h localhost
 ```
+
+
+todo:
+- кнопка возврата из формы регистрации
+- хеширование паролей
+- ..
