@@ -37,24 +37,5 @@ def login():
     return render_template('login.html')
 
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        email = request.form.get('email')
-        if not username or not password or not email:
-            # You can return a better error page here
-            return "All fields are required.", 400
-        existing_user = Users.query.filter_by(username=username).first()
-        if existing_user is None:
-            new_user = Users(username=username, password=password, email=email)
-            db.session.add(new_user)
-            db.session.commit()
-            return redirect(url_for('login'))
-        return "User already exists!"
-    return render_template('register.html')
-
-
 if __name__ == '__main__':
     app.run(debug=True)
