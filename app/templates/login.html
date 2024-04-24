@@ -13,7 +13,7 @@
 
 <body>
   <body>
-<form>
+<form method="post" action="/login">
   <input checked="" id="signin" name="action" type="radio" value="signin">
   <label for="signin">Sign in</label>
   <input id="signup" name="action" type="radio" value="signup">
@@ -22,9 +22,10 @@
   <label for="reset">Reset</label>
   <div id="wrapper">
     <div id="arrow"></div>
-    <input id="email" placeholder="Email" type="text">
-    <input id="pass" placeholder="Password" type="password">
-    <input id="repass" placeholder="Repeat password" type="password">
+    <input id="email" name="email" placeholder="Email" type="text">
+    <input id="password" name="password" placeholder="Password" type="password">
+    <input id="repassword" name="repassword" placeholder="Repeat password" type="password">
+    <input id="login" name="login" placeholder="Login" type="text">
   </div>
   <button type="submit">
     <span>

@@ -1,3 +1,3 @@
 FROM postgres:16.2
 
-COPY databases/postgre/init.sql /docker-entrypoint-initdb.d/
+COPY app/databases/postgresql/scripts/init.sql /docker-entrypoint-initdb.d/
