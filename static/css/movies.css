@@ -1,0 +1,28 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.col {
+  flex-basis: calc(50% - 40px); /* Вычитаем 40px для отступов */
+  margin-bottom: 20px;
+}
+.movie-poster {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+.movie-title {
+  text-align: center;
+  margin-top: 10px;
+}
+.movie-description {
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+}
