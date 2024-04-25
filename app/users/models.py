@@ -2,17 +2,17 @@ from app.models import db
 
 
 class Users(db.Model):
-    __tablename__ = 'Users'
+    __tablename__ = 'users'
 
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
-    registration_date = db.Column(db.Date, nullable=False)
+    registration_date = db.Column(db.Date, nullable=True)
 
 
 class Reviews(db.Model):
-    __tablename__ = 'Reviews'
+    __tablename__ = 'reviews'
 
     review_id = db.Column(db.Integer, primary_key=True)
     movie_id = db.Column(db.Integer, db.ForeignKey('Movies.movie_id'))
@@ -23,7 +23,7 @@ class Reviews(db.Model):
 
 
 class Wishlists(db.Model):
-    __tablename__ = 'Wishlists'
+    __tablename__ = 'wishlists'
 
     wishlist_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('Users.user_id'))
@@ -31,7 +31,7 @@ class Wishlists(db.Model):
 
 
 class Watchedlist(db.Model):
-    __tablename__ = 'Watchedlist'
+    __tablename__ = 'watchedlist'
 
     watched_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('Users.user_id'))
@@ -40,7 +40,7 @@ class Watchedlist(db.Model):
 
 
 class Sessions(db.Model):
-    __tablename__ = 'Sessions'
+    __tablename__ = 'sessions'
 
     session_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('Users.user_id'))
@@ -49,7 +49,7 @@ class Sessions(db.Model):
 
 
 class Payments(db.Model):
-    __tablename__ = 'Payments'
+    __tablename__ = 'payments'
 
     payment_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('Users.user_id'))
@@ -58,7 +58,7 @@ class Payments(db.Model):
 
 
 class Subscriptions(db.Model):
-    __tablename__ = 'Subscriptions'
+    __tablename__ = 'subscriptions'
 
     subscription_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('Users.user_id'))

@@ -9,7 +9,7 @@ html, body { margin: 0; }
 ::-ms-input-placeholder { color: #DEDFDF; }
 
 body {
-  background: #6ED0F6;
+  background: #3E92A3;
   color: #fff;
   font-family: 'Raleway', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -74,7 +74,7 @@ input[type=password] {
   transition: all .2s ease-in-out;
 }
 button {
-  background: #079BCF;
+  background: #6ED0F6;
   border: none;
   border-radius: 8px;
   color: #fff;

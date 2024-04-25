@@ -13,7 +13,7 @@ class Movies(db.Model):
 
 
 class Studios(db.Model):
-    __tablename__ = 'Studios'
+    __tablename__ = 'studios'
 
     studio_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
@@ -22,7 +22,7 @@ class Studios(db.Model):
 
 
 class Directors(db.Model):
-    __tablename__ = 'Directors'
+    __tablename__ = 'directors'
 
     director_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
@@ -31,7 +31,7 @@ class Directors(db.Model):
 
 
 class Actors(db.Model):
-    __tablename__ = 'Actors'
+    __tablename__ = 'actors'
 
     actor_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
@@ -40,14 +40,14 @@ class Actors(db.Model):
 
 
 class MovieDirectors(db.Model):
-    __tablename__ = 'Movie_Directors'
+    __tablename__ = 'movie_directors'
 
     movie_id = db.Column(db.Integer, db.ForeignKey('Movies.movie_id'), primary_key=True)
     director_id = db.Column(db.Integer, db.ForeignKey('Directors.director_id'), primary_key=True)
 
 
 class MovieActors(db.Model):
-    __tablename__ = 'Movie_Actors'
+    __tablename__ = 'movie_actors'
 
     movie_id = db.Column(db.Integer, db.ForeignKey('Movies.movie_id'), primary_key=True)
     actor_id = db.Column(db.Integer, db.ForeignKey('Actors.actor_id'), primary_key=True)
@@ -55,21 +55,21 @@ class MovieActors(db.Model):
 
 
 class Genres(db.Model):
-    __tablename__ = 'Genres'
+    __tablename__ = 'genres'
 
     genre_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
 
 
 class MovieGenres(db.Model):
-    __tablename__ = 'Movie_Genres'
+    __tablename__ = 'movie_genres'
 
     movie_id = db.Column(db.Integer, db.ForeignKey('Movies.movie_id'), primary_key=True)
     genre_id = db.Column(db.Integer, db.ForeignKey('Genres.genre_id'), primary_key=True)
 
 
 class Collections(db.Model):
-    __tablename__ = 'Collections'
+    __tablename__ = 'collections'
 
     collection_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
@@ -77,14 +77,14 @@ class Collections(db.Model):
 
 
 class CollectionMovies(db.Model):
-    __tablename__ = 'Collection_Movies'
+    __tablename__ = 'collection_movies'
 
     collection_id = db.Column(db.Integer, db.ForeignKey('Collections.collection_id'), primary_key=True)
     movie_id = db.Column(db.Integer, db.ForeignKey('Movies.movie_id'), primary_key=True)
 
 
 class TrailerViews(db.Model):
-    __tablename__ = 'Trailer_Views'
+    __tablename__ = 'trailer_views'
 
     view_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('Users.user_id'))
