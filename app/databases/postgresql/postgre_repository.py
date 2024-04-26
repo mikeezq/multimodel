@@ -9,7 +9,7 @@ reset_sequence_sql = text("""
 """)
 
 
-class Db_Repository:
+class Postgre_Repository:
     def __init__(self, db):
         self.db = db
 
@@ -32,5 +32,4 @@ class Db_Repository:
 
     def get_all_movies(self):
         movies = Movies.query.all()
-        print(movies)
         return movies

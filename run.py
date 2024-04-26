@@ -11,7 +11,8 @@ from app import db
 from app.utils.login_page import signin, signup
 from app.models.users import Users
 from app.models.movies import Movies
-from app.databases import db_repo
+from app.databases import postgre_repo, mongo_repo
+
 
 app = Flask(__name__, template_folder=os.path.join(basedir, "templates"), static_folder=os.path.join(basedir, "static"))
 print(os.path.join(basedir, "app/static"))
@@ -121,13 +122,13 @@ def main():
     if not session.get('login', False):
         return redirect(url_for('login'))
 
-    movies = db_repo.get_all_movies()
+    movies = postgre_repo.get_all_movies()
     data = []
     for movie in movies:
-        print(movie.title)
-        data.append(
-            {'title': movie.title, 'filename': 'countdown.jpg', 'description': 'Классный фильм'},
-        )
+        page_data = {'title': movie.title, 'filename': 'countdown.jpg', 'description': 'Классный фильм'}
+        mongo_data = {'title': movie.title, 'filename': 'countdown.jpg'}
+        data.append(page_data)
+        mongo_repo.create_film(mongo_data)
 
     return render_template('main.html', movies=movies)
 

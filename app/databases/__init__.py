@@ -1,4 +1,6 @@
 from app import db
-from app.databases.common_repository import Db_Repository
+from app.databases.postgresql.postgre_repository import Postgre_Repository
+from app.databases.mongodb.mongo_repository import Mongo_Repository
 
-db_repo = Db_Repository(db)
+mongo_repo = Mongo_Repository()
+postgre_repo = Postgre_Repository(db)
