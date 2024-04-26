@@ -64,9 +64,10 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="nav">
                 <ul class="nav navbar-nav uppercase">
-                    <li class="links"><a class="scroll" href="main">Главная</a></li>
+                    <li class="links"><a class="scroll" href="/main">Главная</a></li>
                     <li class="links"><a class="scroll" href="service.html">Добавить Фильм</a></li>
-                    <li class="links"><a class="scroll" href="cabinet">Личный кабинет</a></li>
+                    <li class="links"><a class="scroll" href="/cabinet">Личный кабинет</a></li>
+                    <li class="links"><a class="scroll" href="/admin">Админ</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -94,7 +95,7 @@
         <div class="row">
     {% for movie in movies %}
       <div class="col">
-        <img src="{{ '../static/img/' ~ movie.filename }}" alt="{{ movie.title }}" class="movie-poster">
+        <img src="../static/img/countdown.jpg" alt="{{ movie.title }}" class="movie-poster">
         <h3 class="movie-title">{{ movie.title }}</h3>
         <p class="movie-description">{{ movie.description }}</p>
       </div>
@@ -116,6 +117,7 @@
                             <li><a href="#">Главная</a></li>
                             <li><a href="#">Добавить фильм</a></li>
                             <li><a href="#">Личный кабинет</a></li>
+                            <li><a href="#">Кабинет админа</a></li>
                         </ul>
                     </div>
                     <div class="col-lg-2 hidden-xs hidden-sm">

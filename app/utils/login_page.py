@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from app.databases import db_repo
 
 
@@ -29,7 +31,9 @@ def signup(request_form):
 
     user = db_repo.get_user_by_email(email)
     if user is None:
-        db_repo.create_new_user(username, password, email)
+        registration_date = datetime.now().date()
+        print(registration_date)
+        db_repo.create_new_user(username, password, email, registration_date)
         return "User sucessfully added", 200
     else:
         return "User already exists", 400

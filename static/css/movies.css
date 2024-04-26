@@ -1,5 +1,5 @@
 .container {
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 20px;
 }
@@ -11,6 +11,8 @@
 .col {
   flex-basis: calc(50% - 40px); /* Вычитаем 40px для отступов */
   margin-bottom: 20px;
+  margin-right: 20px;
+  margin-left: 20px;
 }
 .movie-poster {
   width: 100%;

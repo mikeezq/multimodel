@@ -2,7 +2,7 @@ from app.databases import db
 
 
 class Movies(db.Model):
-    __tablename__ = 'Movies'
+    __tablename__ = 'movies'
 
     movie_id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), nullable=False)

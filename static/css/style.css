@@ -1266,10 +1266,10 @@ textarea:hover {
 /** 11. Responsive **/
 
 /*************************************/
-/***** Screen Max. Width = 768px *****/
+/***** Screen Max. Width = 900px *****/
 /*************************************/
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) {
 
 #portfolio_page .sidebar {
 	margin-left: 0;
