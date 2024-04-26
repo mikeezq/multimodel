@@ -1,0 +1,33 @@
+.container-cabinet {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.row-cabinet {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.col-cabinet {
+  flex-basis: calc(33% - 40px);
+  margin-bottom: 20px;
+}
+.cabinet {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.user-info {
+  padding-left: 20px;
+}
+
+.user-info h3 {
+    font-size: 24px; /* Увеличивает размер шрифта для заголовка */
+    margin-bottom: 10px; /* Добавляет небольшой отступ снизу */
+}
+
+.user-info p {
+    font-size: 22px; /* Увеличивает размер шрифта для параграфов */
+    line-height: 2; /* Увеличивает интерлиньяж (расстояние между строками) */
+}
