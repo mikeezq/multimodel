@@ -3,6 +3,13 @@
   margin: 0 auto;
   padding: 20px;
 }
+
+.container-films {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
 .row {
   display: flex;
   flex-wrap: wrap;

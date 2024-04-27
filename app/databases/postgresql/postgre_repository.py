@@ -1,6 +1,6 @@
 from sqlalchemy import text
 
-from app.models.users import Users
+from app.models.users import Users, Reviews
 from app.models.movies import Movies
 
 
@@ -33,3 +33,20 @@ class Postgre_Repository:
     def get_all_movies(self):
         movies = Movies.query.all()
         return movies
+
+    def get_user_reviews(self, username="user1"):
+        reviews = self.db.session.query(
+            Users.user_id,
+            Reviews.rating,
+            Movies.title,
+            Reviews.comment,
+            Reviews.review_date
+        ).join(
+            Reviews, Users.user_id == Reviews.user_id
+        ).join(
+            Movies, Reviews.movie_id == Movies.movie_id
+        ).filter(
+            Users.username == username
+        ).all()
+
+        return reviews

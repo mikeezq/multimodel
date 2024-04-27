@@ -13,6 +13,8 @@ from app.models.users import Users
 from app.models.movies import Movies
 from app.databases import postgre_repo, mongo_repo
 
+from app.s3.s3 import fill_s3_if_not_filled, get_presigned_url
+
 
 app = Flask(__name__, template_folder=os.path.join(basedir, "templates"), static_folder=os.path.join(basedir, "static"))
 print(os.path.join(basedir, "app/static"))
@@ -87,8 +89,10 @@ def login():
 
 @app.route('/logout', methods=['GET'])
 def logout():
-    session.pop('login')
-    session.pop('username')
+    if "login" in session:
+        session.pop('login')
+    if "username" in session:
+        session.pop('username')
     return redirect(url_for('login'))
 
 
@@ -108,11 +112,13 @@ def user_cabinet(username):
         flash('You do not have permission to view this page.', 'error')
         return redirect(url_for('main'))
 
+    reviews = postgre_repo.get_user_reviews()
+
     return render_template(
         'cabinet.html',
-        username=username,
-        user_ratings_count=1,
-        user_reviews_count=1,
+        user_avg_reviews_rating=sum(map(lambda x: x.rating, reviews)) / len(reviews),
+        user_reviews_count=len(reviews),
+        reviews=reviews[:5]
     )
 
 
@@ -126,7 +132,7 @@ def main():
     data = []
     for movie in movies:
         page_data = {'title': movie.title, 'filename': 'countdown.jpg', 'description': 'Классный фильм'}
-        mongo_data = {'title': movie.title, 'filename': 'countdown.jpg'}
+        mongo_data = {'title': movie.title, 'filelink': get_presigned_url("countdown.jpg")}
         data.append(page_data)
         mongo_repo.create_film(mongo_data)
 
@@ -134,4 +140,5 @@ def main():
 
 
 if __name__ == "__main__":
+    fill_s3_if_not_filled()
     app.run(debug=True)

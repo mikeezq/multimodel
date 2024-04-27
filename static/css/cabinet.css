@@ -12,6 +12,12 @@
   flex-basis: calc(33% - 40px);
   margin-bottom: 20px;
 }
+
+.col-user-info {
+  flex-basis: 800px;
+  margin-bottom: 20px;
+}
+
 .cabinet {
   width: 100%;
   height: auto;

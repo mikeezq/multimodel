@@ -96,11 +96,16 @@
             <img src='../static/img/blank-avatar.jpg' class="cabinet">
           </div>
 
-        <div class="col-cabinet">
+        <div class="col-user-info">
             <div class="user-info">
                 <h3>{{ username }}</h3>
-                <p>Количество оценок: {{ user_ratings_count }}</p>
                 <p>Количество отзывов: {{ user_reviews_count }}</p>
+                <p>Средняя оценка: {{ user_avg_reviews_rating }}</p>
+                <p><b>Последние отзывы:</b></p>
+                {% for review in reviews %}
+                <br></br>
+                <p><b>"{{ review.title }}": {{ review.comment }}, оценка: {{ review.rating }}, дата отзыва: {{ review.review_date }}</b></p>
+                {% endfor %}
             </div>
         </div>
         </div>
