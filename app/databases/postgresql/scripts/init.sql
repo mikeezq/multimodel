@@ -16,8 +16,8 @@ VALUES (1, 'Warner Bros. Pictures', 'США', '1923-04-04'),
        (6, 'Syncopy', 'США', '2001-01-01');
 
 -- Таблица с информацией о фильмах
-CREATE TABLE Movies (
-    movie_id INT PRIMARY KEY,
+CREATE TABLE TV_Shows (
+    show_id INT PRIMARY KEY,
     title VARCHAR(255),
     release_date DATE,
     duration INT,
@@ -26,14 +26,15 @@ CREATE TABLE Movies (
     FOREIGN KEY (studio_id) REFERENCES Studios(studio_id)
 );
 
--- Вставка данных в таблицу Movies
-INSERT INTO Movies (movie_id, title, release_date, duration, genre, studio_id)
-VALUES (1, 'Начало', '2010-07-16', 148, 'фантастика, боевик', 1),
-       (2, 'Звёздные войны: Эпизод 4 – Новая надежда', '1977-05-25', 121, 'фантастика, боевик', 2),
-       (3, 'Побег из Шоушенка', '1994-10-14', 142, 'драма', 3),
-       (4, 'Властелин колец: Возвращение короля', '2003-12-17', 201, 'фэнтези, приключения', 4),
-       (5, 'Бойцовский клуб', '1999-10-15', 139, 'драма, триллер', 5),
-       (6, 'Темный рыцарь', '2008-07-18', 152, 'боевик, криминал, драма', 6);
+-- Вставка данных в таблицу TV_Shows
+INSERT INTO TV_Shows (show_id, title, release_date, duration, genre, studio_id)
+VALUES
+    (1, 'Игра престолов', '2011-04-17', NULL, 'фэнтези, драма, приключения', 2),
+    (2, 'Друзья', '1994-09-22', NULL, 'комедия, мелодрама', 1),
+    (3, 'Шерлок', '2010-07-25', NULL, 'детектив, драма', 3),
+    (4, 'Во все тяжкие', '2008-01-20', NULL, 'драма, криминал, триллер', 4),
+    (5, 'Черное зеркало', '2011-12-04', NULL, 'научная фантастика, драма, триллер', 5),
+    (6, 'Карточный домик', '2013-02-01', NULL, 'драма, триллер', 6);
 
 -- Таблица с информацией о пользователе
 CREATE TABLE Users (
@@ -46,9 +47,9 @@ CREATE TABLE Users (
 
 -- Вставка данных в таблицу Users
 INSERT INTO Users (user_id, username, email, password, registration_date)
-VALUES (1, 'user1', 'user1@example.com', 'password1', '2024-04-25'),
-       (2, 'user2', 'user2@example.com', 'password2', '2024-04-25'),
-       (3, 'user3', 'user3@example.com', 'password3', '2024-04-25');
+VALUES (1, 'user1', 'user1', 'password1', '2024-04-25'),
+       (2, 'user2', 'user2', 'password2', '2024-04-25'),
+       (3, 'user3', 'user3', 'password3', '2024-04-25');
 
 -- Таблица с информацией о режиссерах
 CREATE TABLE Directors (
@@ -60,12 +61,12 @@ CREATE TABLE Directors (
 
 -- Вставка данных в таблицу Directors
 INSERT INTO Directors (director_id, name, nationality, birth_date)
-VALUES (1, 'Кристофер Нолан', 'Британия', '1970-07-30'),
-       (2, 'Джордж Лукас', 'США', '1944-05-14'),
-       (3, 'Фрэнк Дарабонт', 'США', '1959-01-28'),
-       (4, 'Питер Джексон', 'Новая Зеландия', '1961-10-31'),
-       (5, 'Дэвид Финчер', 'США', '1962-08-28'),
-	   (6, 'Куентин Тарантино', 'США', '1963-03-27');
+VALUES
+    (1, 'Дэвид Бениофф', 'США', '1970-09-25'),
+    (2, 'Дэнни Кэннон', 'США', '1975-08-19'),
+    (3, 'Мигель Сапочник', 'США', '1974-05-16'),
+    (4, 'Том Маккарти', 'США', '1969-06-22'),
+    (5, 'Алекс Грейвз', 'Великобритания', '1977-02-14');
 
 
 -- Таблица с информацией о актерах
@@ -78,24 +79,27 @@ CREATE TABLE Actors (
 
 -- Вставка данных в таблицу Actors
 INSERT INTO Actors (actor_id, name, nationality, birth_date)
-VALUES (1, 'Леонардо ДиКаприо', 'США', '1974-11-11'),
-       (2, 'Харрисон Форд', 'США', '1942-07-13'),
-       (3, 'Тим Роббинс', 'США', '1958-10-16'),
-       (4, 'Вигго Мортенсен', 'США', '1958-10-20'),
-       (5, 'Брэд Питт', 'США', '1963-12-18'),
-	   (6, 'Мэттью Макконахи', 'США', '1969-11-04');
+VALUES
+    (1, 'Кит Хэрингтон', 'Великобритания', '1986-12-26'),
+    (2, 'Эмилия Кларк', 'Великобритания', '1986-10-23'),
+    (3, 'Дженнифер Энистон', 'США', '1969-02-11'),
+    (4, 'Кортни Кокс', 'США', '1964-06-15'),
+    (5, 'Бенедикт Камбербэтч', 'Великобритания', '1976-07-19'),
+    (6, 'Брайан Крэнстон', 'США', '1956-03-07'),
+    (7, 'Чарли Брукер', 'Великобритания', '1971-03-03'),
+    (8, 'Кевин Спейси', 'США', '1959-07-26');
 
 -- Таблица, связывающая фильмы и их режиссеров (многие ко многим)
-CREATE TABLE Movie_Directors (
-    movie_id INT,
+CREATE TABLE TV_Show_Directors (
+    show_id INT,
     director_id INT,
-    FOREIGN KEY (movie_id) REFERENCES Movies(movie_id),
+    FOREIGN KEY (show_id) REFERENCES TV_Shows(show_id),
     FOREIGN KEY (director_id) REFERENCES Directors(director_id),
-    PRIMARY KEY (movie_id, director_id)
+    PRIMARY KEY (show_id, director_id)
 );
 
--- Вставка данных в таблицу Movie_Directors
-INSERT INTO Movie_Directors (movie_id, director_id)
+-- Вставка данных в таблицу TV_Show_Directors
+INSERT INTO TV_Show_Directors (show_id, director_id)
 VALUES (1, 1),
        (2, 2),
        (3, 3),
@@ -104,43 +108,44 @@ VALUES (1, 1),
        (6, 1);
 
 -- Таблица, связывающая фильмы и их актеров (многие ко многим)
-CREATE TABLE Movie_Actors (
-    movie_id INT,
+CREATE TABLE TV_Show_Actors (
+    show_id INT,
     actor_id INT,
     role VARCHAR(100),
-    FOREIGN KEY (movie_id) REFERENCES Movies(movie_id),
+    FOREIGN KEY (show_id) REFERENCES TV_Shows(show_id),
     FOREIGN KEY (actor_id) REFERENCES Actors(actor_id),
-    PRIMARY KEY (movie_id, actor_id)
+    PRIMARY KEY (show_id, actor_id)
 );
 
--- Вставка данных в таблицу Movie_Actors
-INSERT INTO Movie_Actors (movie_id, actor_id, ROLE)
-VALUES (1, 1, 'Dominic Cobb'),
-       (1, 2, 'Cobb'),
-       (2, 2, 'Han Solo'),
-       (3, 3, 'Andy Dufresne'),
-       (3, 4, 'Red'),
-       (4, 4, 'Aragorn'),
-       (5, 5, 'Tyler Durden'),
-       (6, 1, 'Bruce Wayne');
+-- Вставка данных в таблицу TV_Show_Actors
+INSERT INTO TV_Show_Actors (show_id, actor_id, ROLE)
+VALUES (1, 1, 'Jon Snow'),
+    (1, 2, 'Daenerys Targaryen'),
+    (2, 3, 'Rachel Green'),
+    (2, 4, 'Monica Geller'),
+    (3, 5, 'Sherlock Holmes'),
+    (3, 6, 'John Watson'),
+    (4, 7, 'Walter White'),
+    (5, 8, 'Narrator'),
+    (6, 1, 'Frank Underwood');
 
 -- Таблица с отзывами пользователей о фильмах
 CREATE TABLE Reviews (
     review_id INT PRIMARY KEY,
-    movie_id INT,
+    show_id INT,
     user_id INT,
     rating DECIMAL(3, 1),
     comment TEXT,
     review_date DATE,
-    FOREIGN KEY (movie_id) REFERENCES Movies(movie_id),
+    FOREIGN KEY (show_id) REFERENCES TV_Shows(show_id),
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
 -- Вставка данных в таблицу Reviews
-INSERT INTO Reviews (review_id, movie_id, user_id, rating, comment, review_date)
-VALUES (1, 1, 1, 9.5, 'Отличный фильм!', '2024-04-25'),
+INSERT INTO Reviews (review_id, show_id, user_id, rating, comment, review_date)
+VALUES (1, 1, 1, 9.5, 'Отличный сериал!', '2024-04-25'),
        (2, 2, 1, 8.7, 'Классика жанра.', '2024-04-25'),
-       (3, 3, 2, 10, 'Лучший фильм всех времен.', '2024-04-25');
+       (3, 3, 2, 10, 'Лучший тв сериал всех времен.', '2024-04-25');
 
 -- Таблица с информацией о жанрах
 CREATE TABLE Genres (
@@ -150,24 +155,27 @@ CREATE TABLE Genres (
 
 -- Вставка данных в таблицу Genres
 INSERT INTO Genres (genre_id, name)
-VALUES (1, 'фантастика'),
-       (2, 'боевик'),
-       (3, 'драма'),
-       (4, 'приключения'),
-       (5, 'триллер'),
-       (6, 'криминал');
+VALUES     (1, 'фэнтези'),
+    (2, 'драма'),
+    (3, 'приключения'),
+    (4, 'комедия'),
+    (5, 'мелодрама'),
+    (6, 'детектив'),
+    (7, 'триллер'),
+    (8, 'научная фантастика'),
+    (9, 'криминал');
 
 -- Таблица, связывающая фильмы и их жанры (многие ко многим)
-CREATE TABLE Movie_Genres (
-    movie_id INT,
+CREATE TABLE TV_Show_Genres (
+    show_id INT,
     genre_id INT,
-    FOREIGN KEY (movie_id) REFERENCES Movies(movie_id),
+    FOREIGN KEY (show_id) REFERENCES TV_Shows(show_id),
     FOREIGN KEY (genre_id) REFERENCES Genres(genre_id),
-    PRIMARY KEY (movie_id, genre_id)
+    PRIMARY KEY (show_id, genre_id)
 );
 
--- Вставка данных в таблицу Movie_Genres
-INSERT INTO Movie_Genres (movie_id, genre_id)
+-- Вставка данных в таблицу TV_Show_Genres
+INSERT INTO TV_Show_Genres (show_id, genre_id)
 VALUES (1, 1),
        (1, 2),
        (2, 1),
@@ -193,16 +201,16 @@ VALUES (1, 'Лучшие фильмы', 'Коллекция лучших фил�
        (2, 'Фильмы про любовь', 'Коллекция фильмов о любви и романтике');
 
 -- Таблица, связывающая коллекции и фильмы (многие ко многим)
-CREATE TABLE Collection_Movies (
+CREATE TABLE Collection_TV_Shows (
     collection_id INT,
-    movie_id INT,
+    show_id INT,
     FOREIGN KEY (collection_id) REFERENCES Collections(collection_id),
-    FOREIGN KEY (movie_id) REFERENCES Movies(movie_id),
-    PRIMARY KEY (collection_id, movie_id)
+    FOREIGN KEY (show_id) REFERENCES TV_Shows(show_id),
+    PRIMARY KEY (collection_id, show_id)
 );
 
--- Вставка данных в таблицу Collection_Movies
-INSERT INTO Collection_Movies (collection_id, movie_id)
+-- Вставка данных в таблицу Collection_TV_Shows
+INSERT INTO Collection_TV_Shows (collection_id, show_id)
 VALUES (1, 1),
        (1, 3),
        (1, 4),
@@ -215,13 +223,13 @@ VALUES (1, 1),
 CREATE TABLE Wishlists (
     wishlist_id INT PRIMARY KEY,
     user_id INT,
-    movie_id INT,
+    show_id INT,
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
-    FOREIGN KEY (movie_id) REFERENCES Movies(movie_id)
+    FOREIGN KEY (show_id) REFERENCES TV_Shows(show_id)
 );
 
 -- Вставка данных в таблицу Wishlists
-INSERT INTO Wishlists (wishlist_id, user_id, movie_id)
+INSERT INTO Wishlists (wishlist_id, user_id, show_id)
 VALUES (1, 1, 2),
        (2, 1, 5),
        (3, 2, 4);
@@ -230,14 +238,14 @@ VALUES (1, 1, 2),
 CREATE TABLE Watchedlist (
     watched_id INT PRIMARY KEY,
     user_id INT,
-    movie_id INT,
+    show_id INT,
     watched_date DATE,
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
-    FOREIGN KEY (movie_id) REFERENCES Movies(movie_id)
+    FOREIGN KEY (show_id) REFERENCES TV_Shows(show_id)
 );
 
 -- Вставка данных в таблицу Watchedlist
-INSERT INTO Watchedlist (watched_id, user_id, movie_id, watched_date)
+INSERT INTO Watchedlist (watched_id, user_id, show_id, watched_date)
 VALUES (1, 1, 1, '2024-04-25'),
        (2, 1, 3, '2024-04-25'),
        (3, 1, 6, '2024-04-25'),
@@ -291,14 +299,32 @@ VALUES (1, 1, 'Premium', '2024-04-25', '2024-05-25'),
 CREATE TABLE Trailer_Views (
     view_id INT PRIMARY KEY,
     user_id INT,
-    movie_id INT,
+    show_id INT,
     view_date DATE,
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
-    FOREIGN KEY (movie_id) REFERENCES Movies(movie_id)
+    FOREIGN KEY (show_id) REFERENCES TV_Shows(show_id)
 );
 
 -- Вставка данных в таблицу Trailer_Views
-INSERT INTO Trailer_Views (view_id, user_id, movie_id, view_date)
+INSERT INTO Trailer_Views (view_id, user_id, show_id, view_date)
 VALUES (1, 1, 1, '2024-04-25'),
        (2, 1, 2, '2024-04-25'),
        (3, 2, 3, '2024-04-25');
+
+
+create type roles as enum ('moderator', 'admin');
+-- Таблица с информацией о пользователях с привилегиями
+CREATE TABLE Privileged_Users (
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR(50),
+    email VARCHAR(100),
+    password VARCHAR(255),
+    registration_date DATE,
+    role roles
+);
+
+-- Вставка данных в таблицу Users
+INSERT INTO Privileged_Users (user_id, username, email, password, registration_date, role)
+VALUES (1, 'admin', 'admin', 'admin', '2024-04-25', 'admin'),
+       (2, 'moder1', 'moder1', 'moder1', '2024-04-26', 'moderator'),
+       (3, 'moder2', 'moder2', 'moder2', '2024-04-27', 'moderator');

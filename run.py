@@ -10,7 +10,7 @@ from config import SQLALCHEMY_DATABASE_URI, basedir
 from app import db
 from app.utils.login_page import signin, signup
 from app.models.users import Users
-from app.models.movies import Movies
+from app.models.tv_shows import TV_Shows
 from app.databases import postgre_repo, mongo_repo
 
 from app.s3.s3 import fill_s3_if_not_filled, get_presigned_url
@@ -53,7 +53,7 @@ class AuthAdminModelView(ModelView):
 def activate_admin_views(admin, db):
     for table in [
         Users,
-        Movies
+        TV_Shows
     ]:
         admin.add_view(AuthAdminModelView(table, db.session))
 
@@ -69,6 +69,7 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    admins, moderators = postgre_repo.get_privileged_users()
     if request.method == 'POST':
         action = request.form.get('action')
 
@@ -98,9 +99,9 @@ def logout():
 
 @app.route('/cabinet')
 def cabinet():
-    login = session.get('login')
+    log = session.get('login')
     username = session.get('username')
-    if not login or not username:
+    if not log or not username:
         return redirect(url_for('login'))
     return redirect(url_for('user_cabinet', username=username))
 
@@ -128,15 +129,15 @@ def main():
     if not session.get('login', False):
         return redirect(url_for('login'))
 
-    movies = postgre_repo.get_all_movies()
+    shows = postgre_repo.get_all_shows()
     data = []
-    for movie in movies:
-        page_data = {'title': movie.title, 'filename': 'countdown.jpg', 'description': 'Классный фильм'}
-        mongo_data = {'title': movie.title, 'filelink': get_presigned_url("countdown.jpg")}
+    for show in shows:
+        page_data = {'title': show.title, 'filename': 'countdown.jpg', 'description': 'Классный фильм'}
+        mongo_data = {'title': show.title, 'filelink': get_presigned_url("countdown.jpg")}
         data.append(page_data)
         mongo_repo.create_film(mongo_data)
 
-    return render_template('main.html', movies=movies)
+    return render_template('main.html', movies=shows)
 
 
 if __name__ == "__main__":
