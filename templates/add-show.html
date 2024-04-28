@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="../static/css/owl.carousel.css">
     <link rel="stylesheet" href="../static/css/cubeportfolio.min.css">
     <link rel="stylesheet" href="../static/css/reset.css">
-    <link rel="stylesheet" href="../static/css/show.css">
+    <link rel="stylesheet" href="../static/css/all_shows.css">
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../static/css/style.css">
@@ -81,7 +81,7 @@
             <div class="row">
                 <!--Title-->
                 <div class="col-lg-12 wow fadeInDown">
-                    <h2>Личный кабинет</h2>
+                    <h2>Добавление тв-сериала</h2>
                     <div class="line"></div>
                 </div>
             </div>
@@ -90,46 +90,59 @@
     </div><!--End About-->
 
 
-    <div class="container-show">
-        <div class="row-show">
-          <div class="col-show">
-            <img src="{{ link }}" class="show">
-          </div>
+    <div class="container">
+        <div class="row">
+            <form action="{{ url_for('add_show') }}" method="post" enctype="multipart/form-data">
+                <label for="title">Название сериала:</label>
+                <input type="text" id="title" name="title" required>
 
-        <div class="col-show-info">
-            <div class="show-info">
-                <h3>{{ show_info.title }}</h3>
-                <p>Дата релиза: {{ show_info.release_date }}</p>
-                <p>Страна: {{ show_info.country }}</p>
-                <p>Студия: {{ show_info.studio_name }}</p>
-                <p>Жанр: {{ show_info.genre }}</p>
-                <p>Режиссер: {{ show_info.director_name }}</p>
-                <p>Актёры: {{ show_info.actors }}</p>
-                <p>Продолжительность: {{ show_info.duration }}</p>
-                <p>Количество отзывов: {{ show_reviews.count }}</p>
-                <p>Средняя оценка: {{ show_reviews.avg_rating }}</p>
-<!--                <p><b>Последние отзывы:</b></p>-->
-<!--                {% for review in reviews %}-->
-<!--                <br></br>-->
-<!--                <p><b>"{{ review.title }}": {{ review.comment }}, оценка: {{ review.rating }}, дата отзыва: {{ review.review_date }}</b></p>-->
-<!--                {% endfor %}-->
-            </div>
-        </div>
-            <div class="under-col-show-info">
-                <div class="under-show-info">
-                    <p style="text-indent: 25px;">
-                        {{ show_info.description }}
-                    </p>
-                    <br></br>
-                    <p><b>Последние отзывы:</b></p>
-                    {% for review in show_reviews.reviews %}
-                        <p><b>{{ review.username }}: {{ review.comment }}, оценка: {{ review.rating }}, дата отзыва: {{ review.review_date }}</b></p>
-                        <br></br>
+                <label for="release_date">Дата релиза:</label>
+                <input type="date" id="release_date" name="release_date" required>
+
+                <label for="studio_name">Студия:</label>
+                <select id="studio_name" name="studio_name" required>
+                    {% for studio in shows_data.studios %}
+                        <option value="{{ studio.name }}">{{ studio.name }}</option>
                     {% endfor %}
-                </div>
-            </div>
+                </select>
+
+                <label for="genre">Жанр:</label>
+                <select id="genre" name="genre" required>
+                    {% for genre in shows_data.genres %}
+                        <option value="{{ genre.name }}">{{ genre.name }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="director_name">Режиссер:</label>
+                <select id="director_name" name="director_name" required>
+                    {% for director in shows_data.directors %}
+                        <option value="{{ director.name }}">{{ director.name }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="actors">Актёры:</label>
+                <select id="actors" name="actors" required>
+                    {% for actor in shows_data.actors %}
+                        <option value="{{ actor.name }}">{{ actor.name }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="duration">Роль:</label>
+                <input type="text" id="duration" name="duration" required>
+
+                <label for="role">Продолжительность:</label>
+                <input type="text" id="role" name="role" required>
+
+                <label for="image" >Обложка сериала:</label>
+                <input type="file" id="image" name="image" required>
+
+                <br></br>
+                <input type="submit" value="Добавить ТВ-сериал">
+            </form>
         </div>
     </div>
+
+
 
 
     <!--Footer-->
@@ -143,7 +156,7 @@
                     <div class="col-lg-6 hidden-xs hidden-sm">
                         <ul class="footer-menu">
                             <li><a href="#">Главная</a></li>
-                            <li><a href="#">Добавить ТВ-сериал</a></li>
+                            <li><a href="#">Добавить фильм</a></li>
                             <li><a href="#">Личный кабинет</a></li>
                             <li><a href="#">Кабинет админа</a></li>
                         </ul>

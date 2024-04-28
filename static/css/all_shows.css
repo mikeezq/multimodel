@@ -35,3 +35,9 @@
   color: #666;
   font-size: 14px;
 }
+
+select, input[type="text"], input[type="url"], textarea, input[type="submit"] {
+    width: 800px;
+    display: block; /* Делает элемент блочным */
+    margin-bottom: 15px; /* Добавляет нижний отступ между элементами формы */
+}

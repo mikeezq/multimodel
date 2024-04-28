@@ -68,6 +68,7 @@ a:focus {
 }
 
 .navbar .navbar-collapse {
+	width: 900px;
     text-align: center;
 }
 

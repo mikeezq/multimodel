@@ -9,7 +9,7 @@ class TV_Shows(db.Model):
     release_date = db.Column(db.Date)
     duration = db.Column(db.Integer)
     genre = db.Column(db.String(50))
-    studio_id = db.Column(db.Integer, db.ForeignKey('Studios.studio_id'))
+    studio_id = db.Column(db.Integer, db.ForeignKey('studios.studio_id'))
 
 
 class Studios(db.Model):
@@ -42,15 +42,15 @@ class Actors(db.Model):
 class TV_ShowDirectors(db.Model):
     __tablename__ = 'tv_show_directors'
 
-    show_id = db.Column(db.Integer, db.ForeignKey('TV_Shows.show_id'), primary_key=True)
-    director_id = db.Column(db.Integer, db.ForeignKey('Directors.director_id'), primary_key=True)
+    show_id = db.Column(db.Integer, db.ForeignKey('tv_shows.show_id'), primary_key=True)
+    director_id = db.Column(db.Integer, db.ForeignKey('directors.director_id'), primary_key=True)
 
 
 class TV_ShowActors(db.Model):
     __tablename__ = 'tv_show_actors'
 
-    show_id = db.Column(db.Integer, db.ForeignKey('TV_Shows.show_id'), primary_key=True)
-    actor_id = db.Column(db.Integer, db.ForeignKey('Actors.actor_id'), primary_key=True)
+    show_id = db.Column(db.Integer, db.ForeignKey('tv_shows.show_id'), primary_key=True)
+    actor_id = db.Column(db.Integer, db.ForeignKey('actors.actor_id'), primary_key=True)
     role = db.Column(db.String(100))
 
 
@@ -64,8 +64,8 @@ class Genres(db.Model):
 class TV_ShowGenres(db.Model):
     __tablename__ = 'tv_show_genres'
 
-    show_id = db.Column(db.Integer, db.ForeignKey('TV_Shows.show_id'), primary_key=True)
-    genre_id = db.Column(db.Integer, db.ForeignKey('Genres.genre_id'), primary_key=True)
+    show_id = db.Column(db.Integer, db.ForeignKey('tv_shows.show_id'), primary_key=True)
+    genre_id = db.Column(db.Integer, db.ForeignKey('genres.genre_id'), primary_key=True)
 
 
 class Collections(db.Model):
@@ -79,14 +79,14 @@ class Collections(db.Model):
 class CollectionTV_Shows(db.Model):
     __tablename__ = 'collection_tv_shows'
 
-    collection_id = db.Column(db.Integer, db.ForeignKey('Collections.collection_id'), primary_key=True)
-    show_id = db.Column(db.Integer, db.ForeignKey('TV_Shows.show_id'), primary_key=True)
+    collection_id = db.Column(db.Integer, db.ForeignKey('collections.collection_id'), primary_key=True)
+    show_id = db.Column(db.Integer, db.ForeignKey('tv_shows.show_id'), primary_key=True)
 
 
 class TrailerViews(db.Model):
     __tablename__ = 'trailer_views'
 
     view_id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('Users.user_id'))
-    show_id = db.Column(db.Integer, db.ForeignKey('TV_Shows.show_id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    show_id = db.Column(db.Integer, db.ForeignKey('tv_shows.show_id'))
     view_date = db.Column(db.Date)

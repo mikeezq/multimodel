@@ -1,5 +1,7 @@
 import os
 
+from sqlalchemy import inspect
+
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_caching import Cache
 from flask_admin import expose, AdminIndexView, Admin
@@ -8,12 +10,18 @@ from flask_admin.contrib.sqla import ModelView
 from config import SQLALCHEMY_DATABASE_URI, basedir
 
 from app import db
-from app.utils.login_page import signin, signup
-from app.models.users import Users
-from app.models.tv_shows import TV_Shows
-from app.databases import postgre_repo, mongo_repo
+from app.utils.login import signin, signup
 
+from app.models.users import Users, Reviews, Wishlists, Watchedlist, Sessions, Payments,\
+    Subscriptions, Roles, Privileged_Users
+
+from app.models.tv_shows import TV_Shows, Studios, Directors, Actors, TV_ShowActors, TV_ShowDirectors, TV_ShowGenres,\
+    Genres, CollectionTV_Shows, Collections, TrailerViews
+
+from app.databases import postgre_repo, mongo_repo
 from app.s3.s3 import fill_s3_if_not_filled
+from app.utils.main import get_show_reviews
+from app.utils.add_new_serial import create_serial_view
 
 
 app = Flask(__name__, template_folder=os.path.join(basedir, "templates"), static_folder=os.path.join(basedir, "static"))
@@ -43,6 +51,10 @@ class AuthAdminIndexView(AdminIndexView):
 
 
 class AuthAdminModelView(ModelView):
+    column_display_pk = True
+    can_view_details = True
+    column_hide_backrefs = False
+
     def is_accessible(self):
         return 'username' in session and session['username'] == 'admin'
 
@@ -52,13 +64,25 @@ class AuthAdminModelView(ModelView):
 
 def activate_admin_views(admin, db):
     for table in [
-        Users,
-        TV_Shows
+        Users, TV_Shows, Reviews, Wishlists, Watchedlist, Sessions, Payments, Subscriptions, Privileged_Users,
+        Studios, Directors, Actors, TV_ShowActors, TV_ShowGenres, TV_ShowDirectors, CollectionTV_Shows, Genres,
+        Collections, TrailerViews
     ]:
-        admin.add_view(AuthAdminModelView(table, db.session))
+        column_list = [c_attr.key for c_attr in inspect(table).mapper.column_attrs]
+        ChildView = type(
+            f'ChildView{table.__tablename__}',
+            (ModelView,),
+            {
+                'column_display_pk': True,
+                'column_hide_backrefs': False,
+                'column_list': column_list
+            }
+        )
+
+        admin.add_view(ChildView(table, db.session))
 
 
-admin = Admin(app, name='Must 2.0 AdminPanel', template_mode='bootstrap3', index_view=AuthAdminIndexView())
+admin = Admin(app, name='TV serials AdminPanel', template_mode='bootstrap2', index_view=AuthAdminIndexView())
 activate_admin_views(admin, db)
 
 
@@ -78,6 +102,12 @@ def login():
             if status_code == 200:
                 session['login'] = True
                 session['username'] = username
+                if username in admins:
+                    session['role'] = 'admin'
+                elif username in moderators:
+                    session['role'] = 'moderator'
+                else:
+                    session['role'] = 'user'
                 return redirect(url_for('main'))
             return ans, status_code
         elif action == "signup":
@@ -117,28 +147,29 @@ def user_cabinet(username):
 
     return render_template(
         'cabinet.html',
-        user_avg_reviews_rating=sum(map(lambda x: x.rating, reviews)) / len(reviews),
+        user_avg_reviews_rating=sum(map(lambda x: x.rating, reviews)) / len(reviews) if len(reviews) else 0,
         user_reviews_count=len(reviews),
         reviews=reviews[:5]
     )
 
 
+@app.route('/add-show', methods=['GET', 'POST'])
+def add_show():
+    if not session.get('login', False):
+        return redirect(url_for('login'))
+    if request.method == "POST":
+        create_serial_view(request)
+    shows_data = postgre_repo.get_possible_shows_data()
+    return render_template("add-show.html", shows_data=shows_data)
+
+
 @app.route('/main/<title>', methods=['GET'])
 def main_show(title):
+    if not session.get('login', False):
+        return redirect(url_for('login'))
     link = mongo_repo.get_show_link(title)
     show_info = postgre_repo.get_show_info(title)
-    print(show_info)
-
-    reviews = postgre_repo.get_show_reviews(title)
-    show_avg_reviews_rating = sum(map(lambda x: x.rating, reviews)) / len(reviews),
-    show_reviews_count = len(reviews),
-    reviews = reviews[:5]
-    print(reviews)
-    show_reviews = {
-        'avg_rating': float(show_avg_reviews_rating[0]),
-        'count': int(show_reviews_count[0]),
-        'reviews': reviews
-    }
+    show_reviews = get_show_reviews(title)
 
     return render_template('show.html', show_info=show_info, link=link, show_reviews=show_reviews)
 

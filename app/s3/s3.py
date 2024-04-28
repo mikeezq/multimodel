@@ -40,5 +40,6 @@ def fill_s3_if_not_filled():
     for flag in os.listdir(media_dir):
         s3 = get_s3()
         flag_path = os.path.join(media_dir, flag)
+        print(flag_path, flag)
         s3.upload_file(flag_path, bucket_name, flag)
     print("flags ok")
