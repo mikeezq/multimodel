@@ -13,7 +13,7 @@ from app.models.users import Users
 from app.models.tv_shows import TV_Shows
 from app.databases import postgre_repo, mongo_repo
 
-from app.s3.s3 import fill_s3_if_not_filled, get_presigned_url
+from app.s3.s3 import fill_s3_if_not_filled
 
 
 app = Flask(__name__, template_folder=os.path.join(basedir, "templates"), static_folder=os.path.join(basedir, "static"))
@@ -113,7 +113,7 @@ def user_cabinet(username):
         flash('You do not have permission to view this page.', 'error')
         return redirect(url_for('main'))
 
-    reviews = postgre_repo.get_user_reviews()
+    reviews = postgre_repo.get_user_reviews(username)
 
     return render_template(
         'cabinet.html',
@@ -123,23 +123,37 @@ def user_cabinet(username):
     )
 
 
+@app.route('/main/<title>', methods=['GET'])
+def main_show(title):
+    link = mongo_repo.get_show_link(title)
+    show_info = postgre_repo.get_show_info(title)
+    print(show_info)
+
+    reviews = postgre_repo.get_show_reviews(title)
+    show_avg_reviews_rating = sum(map(lambda x: x.rating, reviews)) / len(reviews),
+    show_reviews_count = len(reviews),
+    reviews = reviews[:5]
+    print(reviews)
+    show_reviews = {
+        'avg_rating': float(show_avg_reviews_rating[0]),
+        'count': int(show_reviews_count[0]),
+        'reviews': reviews
+    }
+
+    return render_template('show.html', show_info=show_info, link=link, show_reviews=show_reviews)
+
+
 @app.route('/main', methods=['GET'])
 @cache.cached(timeout=50)
 def main():
     if not session.get('login', False):
         return redirect(url_for('login'))
 
-    shows = postgre_repo.get_all_shows()
-    data = []
-    for show in shows:
-        page_data = {'title': show.title, 'filename': 'countdown.jpg', 'description': 'Классный фильм'}
-        mongo_data = {'title': show.title, 'filelink': get_presigned_url("countdown.jpg")}
-        data.append(page_data)
-        mongo_repo.create_film(mongo_data)
-
-    return render_template('main.html', movies=shows)
+    shows = mongo_repo.get_all_shows()
+    return render_template('main.html', shows=shows)
 
 
 if __name__ == "__main__":
     fill_s3_if_not_filled()
+    mongo_repo.init_db()
     app.run(debug=True)

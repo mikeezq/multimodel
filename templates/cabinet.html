@@ -101,10 +101,11 @@
                 <h3>{{ username }}</h3>
                 <p>Количество отзывов: {{ user_reviews_count }}</p>
                 <p>Средняя оценка: {{ user_avg_reviews_rating }}</p>
+                <br></br>
                 <p><b>Последние отзывы:</b></p>
                 {% for review in reviews %}
-                <br></br>
                 <p><b>"{{ review.title }}": {{ review.comment }}, оценка: {{ review.rating }}, дата отзыва: {{ review.review_date }}</b></p>
+                <br></br>
                 {% endfor %}
             </div>
         </div>

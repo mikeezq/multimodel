@@ -35,7 +35,7 @@ def fill_s3_if_not_filled():
 
     get_s3().create_bucket(Bucket=bucket_name)
 
-    media_dir = os.path.join(os.getcwd(), "static", "img")
+    media_dir = os.path.join(os.getcwd(), "static", "img", "shows")
 
     for flag in os.listdir(media_dir):
         s3 = get_s3()

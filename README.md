@@ -19,14 +19,26 @@ psql -U local-db -d local-db -h localhost
 
 Для запуска и подключения к монго
 ```shell
+brew install mongodb-community@7.0
 brew services start mongodb-community@7.0
-mongosh
+mongosh # консоль для работы с базой
 ```
 
 Для отключения сервера
 ```shell
 brew services stop mongodb-community@7.0
 ```
+
+## Localstack
+Localstack - локальный s3
+Для запуска:
+```shell
+brew install pkg-config libvirt
+pip install localstack[runtime]
+localstack start --host
+```
+
+
 
 ## TODO:
 - кнопочка logout
@@ -35,3 +47,5 @@ brew services stop mongodb-community@7.0
 - валидация пользовательских данных (например одинаковые username / email и тп)
 - typing
 - вынести админку из run.py
+- кнопочка добавить фильм
+- вынести user_info в отдельную функцию

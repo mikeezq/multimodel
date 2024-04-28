@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="../static/css/owl.carousel.css">
     <link rel="stylesheet" href="../static/css/cubeportfolio.min.css">
     <link rel="stylesheet" href="../static/css/reset.css">
-    <link rel="stylesheet" href="../static/css/movies.css">
+    <link rel="stylesheet" href="../static/css/all_shows.css">
         
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../static/css/style.css">
@@ -93,13 +93,14 @@
 
     <div class="container-films">
         <div class="row">
-    {% for movie in movies %}
-      <div class="col">
-        <img src="../static/img/countdown.jpg" alt="{{ movie.title }}" class="movie-poster">
-        <h3 class="movie-title">{{ movie.title }}</h3>
-        <p class="movie-description">{{ movie.description }}</p>
-      </div>
-    {% endfor %}
+            {% for show in shows %}
+            <div class="col">
+                <img src="{{ show.link }}" alt="{{ show.title }}" class="show-poster">
+                <a href="/main/{{ show.title | urlencode }}" class="show-link">
+                    <h3 class="show-title">{{ show.title }}</h3>
+                </a>
+            </div>
+            {% endfor %}
         </div>
     </div>
 

@@ -1,0 +1,53 @@
+.container-show {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.row-show {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.col-show {
+  flex-basis: calc(33% - 40px);
+  margin-bottom: 20px;
+}
+
+.col-show-info {
+  flex-basis: 800px;
+  margin-bottom: 20px;
+}
+
+.show {
+  width: 100%;
+  height: 500px;
+  border-radius: 10px;
+}
+
+.show-info {
+  padding-left: 20px;
+}
+
+.show-info h3 {
+    font-size: 24px; /* Увеличивает размер шрифта для заголовка */
+    margin-bottom: 10px; /* Добавляет небольшой отступ снизу */
+}
+
+.show-info p {
+    font-size: 22px; /* Увеличивает размер шрифта для параграфов */
+    line-height: 2.2; /* Увеличивает интерлиньяж (расстояние между строками) */
+}
+
+.under-show-info {
+  padding-left: 5px;
+}
+
+.under-show-info h3 {
+    font-size: 24px; /* Увеличивает размер шрифта для заголовка */
+    margin-bottom: 10px; /* Добавляет небольшой отступ снизу */
+}
+
+.under-show-info p {
+    font-size: 22px; /* Увеличивает размер шрифта для параграфов */
+    line-height: 2.2; /* Увеличивает интерлиньяж (расстояние между строками) */
+}
