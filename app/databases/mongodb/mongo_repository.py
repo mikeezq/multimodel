@@ -27,7 +27,7 @@ class Mongo_Repository:
             show = self._collection.find_one({"title": title})
             return show.get('link')
         except Exception:
-            print("No film image with such title")
+            print("No show image with such title")
 
     def get_all_shows(self):
         try:

@@ -13,7 +13,7 @@ from app import db
 from app.utils.login import signin, signup
 
 from app.models.users import Users, Reviews, Wishlists, Watchedlist, Sessions, Payments,\
-    Subscriptions, Roles, Privileged_Users
+    Subscriptions, Privileged_Users
 
 from app.models.tv_shows import TV_Shows, Studios, Directors, Actors, TV_ShowActors, TV_ShowDirectors, TV_ShowGenres,\
     Genres, CollectionTV_Shows, Collections, TrailerViews
@@ -167,11 +167,30 @@ def add_show():
 def main_show(title):
     if not session.get('login', False):
         return redirect(url_for('login'))
+
     link = mongo_repo.get_show_link(title)
     show_info = postgre_repo.get_show_info(title)
     show_reviews = get_show_reviews(title)
 
     return render_template('show.html', show_info=show_info, link=link, show_reviews=show_reviews)
+
+
+@app.route('/main/<title>/submit_review', methods=['POST'])
+def submit_review(title):
+    comment = request.form.get('review')
+    rating = request.form.get('rating', type=float)
+    if rating is None or not (0.0 <= rating <= 10.0):
+        flash('Рейтинг должен быть числом от 0.0 до 10.0', 'error')
+        return redirect(url_for('main_show', title=title))
+
+    username = session.get('username')
+    try:
+        postgre_repo.add_new_review(title, username, comment, rating)
+        flash('Отзыв успешно добавлен.', 'success')
+    except Exception as e:
+        print(e)
+        flash('Ошибка при добавлении отзыва.', 'error')
+    return redirect(url_for('main_show', title=title))
 
 
 @app.route('/main', methods=['GET'])
