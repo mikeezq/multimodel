@@ -17,8 +17,6 @@ class Mongo_Repository:
             if self._collection.find_one({"title": show.get("title")}) is None:
                 self._collection.insert_one(show)
                 print(f"Added new show: {show}")
-            else:
-                print(f"Show: {show} in collection")
         except Exception:
             print("[create_show] Some problem...")
 

@@ -77,8 +77,8 @@
 
     <!--About-->
     <div id="about_us">
-        <div class= "container">
-            <div class="row">
+        <div class= "container-show">
+            <div class="row-show">
                 <!--Title-->
                 <div class="col-lg-12 wow fadeInDown">
                     <h2>ТВ-сериал</h2>
@@ -164,7 +164,9 @@
                             <li><a href="#">Главная</a></li>
                             <li><a href="#">Добавить ТВ-сериал</a></li>
                             <li><a href="#">Личный кабинет</a></li>
+                            {% if is_admin %}
                             <li><a href="#">Кабинет админа</a></li>
+                            {% endif %}
                         </ul>
                     </div>
                     <div class="col-lg-2 hidden-xs hidden-sm">

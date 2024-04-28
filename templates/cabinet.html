@@ -68,7 +68,9 @@
                     <li class="links"><a class="scroll" href="/main">Главная</a></li>
                     <li class="links"><a class="scroll" href="/add-show">Добавить ТВ-сериал</a></li>
                     <li class="links"><a class="scroll" href="/cabinet">Личный кабинет</a></li>
+                    {% if is_admin %}
                     <li class="links"><a class="scroll" href="/admin">Кабинет админа</a></li>
+                    {% endif %}
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -127,7 +129,9 @@
                             <li><a href="#">Главная</a></li>
                             <li><a href="#">Добавить ТВ-сериал</a></li>
                             <li><a href="#">Личный кабинет</a></li>
+                            {% if is_admin %}
                             <li><a href="#">Кабинет админа</a></li>
+                            {% endif %}
                         </ul>
                     </div>
                     <div class="col-lg-2 hidden-xs hidden-sm">

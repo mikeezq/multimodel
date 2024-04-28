@@ -101,13 +101,15 @@ def login():
             ans, status_code, username = signin(request.form)
             if status_code == 200:
                 session['login'] = True
+                print(admins, moderators)
                 session['username'] = username
-                if username in admins:
+                if username in [admin.username for admin in admins]:
                     session['role'] = 'admin'
-                elif username in moderators:
+                elif username in [moderator.username for moderator in moderators]:
                     session['role'] = 'moderator'
                 else:
                     session['role'] = 'user'
+                print(session)
                 return redirect(url_for('main'))
             return ans, status_code
         elif action == "signup":
@@ -124,6 +126,8 @@ def logout():
         session.pop('login')
     if "username" in session:
         session.pop('username')
+    if "role" in session:
+        session.pop('role')
     return redirect(url_for('login'))
 
 
@@ -133,6 +137,7 @@ def cabinet():
     username = session.get('username')
     if not log or not username:
         return redirect(url_for('login'))
+
     return redirect(url_for('user_cabinet', username=username))
 
 
@@ -140,16 +145,17 @@ def cabinet():
 def user_cabinet(username):
     session_username = session.get('username')
     if username != session_username:
-        flash('You do not have permission to view this page.', 'error')
         return redirect(url_for('main'))
 
     reviews = postgre_repo.get_user_reviews(username)
 
+    is_admin = session.get('role') == 'admin'
     return render_template(
         'cabinet.html',
         user_avg_reviews_rating=sum(map(lambda x: x.rating, reviews)) / len(reviews) if len(reviews) else 0,
         user_reviews_count=len(reviews),
-        reviews=reviews[:5]
+        reviews=reviews[:5],
+        is_admin=is_admin
     )
 
 
@@ -158,9 +164,16 @@ def add_show():
     if not session.get('login', False):
         return redirect(url_for('login'))
     if request.method == "POST":
-        create_serial_view(request)
+        try:
+            create_serial_view(request)
+            flash('Сериал успешно добавлен.', 'success')
+        except Exception:
+            flash('Не удалось добавить сериал.', 'error')
+
     shows_data = postgre_repo.get_possible_shows_data()
-    return render_template("add-show.html", shows_data=shows_data)
+
+    is_admin = session.get('role') == 'admin'
+    return render_template("add-show.html", shows_data=shows_data, is_admin=is_admin)
 
 
 @app.route('/main/<title>', methods=['GET'])
@@ -172,7 +185,8 @@ def main_show(title):
     show_info = postgre_repo.get_show_info(title)
     show_reviews = get_show_reviews(title)
 
-    return render_template('show.html', show_info=show_info, link=link, show_reviews=show_reviews)
+    is_admin = session.get('role') == 'admin'
+    return render_template('show.html', show_info=show_info, link=link, show_reviews=show_reviews, is_admin=is_admin)
 
 
 @app.route('/main/<title>/submit_review', methods=['POST'])
@@ -190,6 +204,7 @@ def submit_review(title):
     except Exception as e:
         print(e)
         flash('Ошибка при добавлении отзыва.', 'error')
+
     return redirect(url_for('main_show', title=title))
 
 
@@ -200,7 +215,9 @@ def main():
         return redirect(url_for('login'))
 
     shows = mongo_repo.get_all_shows()
-    return render_template('main.html', shows=shows)
+
+    is_admin = session.get('role') == 'admin'
+    return render_template('main.html', shows=shows, is_admin=is_admin)
 
 
 if __name__ == "__main__":

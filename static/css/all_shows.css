@@ -5,7 +5,7 @@
 }
 
 .container-films {
-  max-width: 800px;
+  max-width: 850px;
   margin: 0 auto;
   padding: 20px;
 }
@@ -13,7 +13,7 @@
 .row {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
 }
 .col {
   flex-basis: calc(50% - 40px); /* Вычитаем 40px для отступов */

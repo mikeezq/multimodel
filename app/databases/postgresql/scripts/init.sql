@@ -49,13 +49,13 @@ CREATE TABLE Users (
 
 -- Вставка данных в таблицу Users
 INSERT INTO Users (user_id, username, email, password, registration_date)
-VALUES (1, 'user1', 'user1', 'password1', '2024-04-25'),
-       (2, 'user2', 'user2', 'password2', '2024-04-25'),
-       (3, 'test', 'test', 'test', '2024-04-25'),
-       (4, 'user3', 'user3', 'password3', '2024-04-25'),
-       (5, 'admin', 'admin', 'admin', '2024-04-25'),
-       (6, 'moder1', 'moder1', 'moder1', '2024-04-25'),
-       (7, 'moder2', 'moder2', 'moder2', '2024-04-25');
+VALUES (1, 'user1', 'user1', '$2b$12$6rB2FwX7/j/9wTHZdHUoLezHRrQgRZF8ByJmz.0X694rCKKoPyNCW', '2024-04-25'),
+       (2, 'user2', 'user2', '$2b$12$g7eJtKkOL27nJLydT1RyAuRdIC.qdnEuIz9PNYWpHpOh8k2Lwz8gy', '2024-04-25'),
+       (3, 'test', 'test', '$2b$12$cRKrO5k7Q99.htj/5Qv4h.69AEOtbu5WvYHtslbFdfx5pAwJlU2Zy', '2024-04-25'),
+       (4, 'user3', 'user3', '$2b$12$t2CZGyqHtORDGTjHdWyo/.sNhelK1adlb.fphtkp0VJebu4410s56', '2024-04-25'),
+       (5, 'admin', 'admin', '$2b$12$R9jsQi9ga0sdy2YkPngtXe1YjiejbP.KfyJSbnfC1rL7JkWUaIdma', '2024-04-25'),
+       (6, 'moder1', 'moder1', '$2b$12$U2sC3HQI6IC5qRMXAuKJKO4.A1VBMmLr9WYQuSOJpRyN77Ccdk00y', '2024-04-25'),
+       (7, 'moder2', 'moder2', '$2b$12$zhkHpHz4aqOtBVZ7FDfQpOBa5z2f9UQpihUXwGfghmVcIKcH.ch9S', '2024-04-25');
 
 -- Таблица с информацией о режиссерах
 CREATE TABLE Directors (

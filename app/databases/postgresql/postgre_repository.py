@@ -52,6 +52,9 @@ class Postgre_Repository:
     def get_user_by_email(self, email):
         return Users.query.filter_by(email=email).first()
 
+    def get_user_by_username(self, username):
+        return Users.query.filter_by(username=username).first()
+
     def create_new_user(self, username, password, email, registration_date):
         new_user = Users(
             username=username,
