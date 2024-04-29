@@ -108,11 +108,6 @@
                 <p>Продолжительность: {{ show_info.duration }}</p>
                 <p>Количество отзывов: {{ show_reviews.count }}</p>
                 <p>Средняя оценка: {{ show_reviews.avg_rating }}</p>
-<!--                <p><b>Последние отзывы:</b></p>-->
-<!--                {% for review in reviews %}-->
-<!--                <br></br>-->
-<!--                <p><b>"{{ review.title }}": {{ review.comment }}, оценка: {{ review.rating }}, дата отзыва: {{ review.review_date }}</b></p>-->
-<!--                {% endfor %}-->
             </div>
         </div>
             <div class="under-col-show-info">
@@ -161,11 +156,11 @@
                     </div>
                     <div class="col-lg-6 hidden-xs hidden-sm">
                         <ul class="footer-menu">
-                            <li><a href="#">Главная</a></li>
-                            <li><a href="#">Добавить ТВ-сериал</a></li>
-                            <li><a href="#">Личный кабинет</a></li>
+                            <li><a href="/main">Главная</a></li>
+                            <li><a href="/add-show">Добавить ТВ-сериал</a></li>
+                            <li><a href="/cabinet">Личный кабинет</a></li>
                             {% if is_admin %}
-                            <li><a href="#">Кабинет админа</a></li>
+                            <li><a href="/admin">Кабинет админа</a></li>
                             {% endif %}
                         </ul>
                     </div>

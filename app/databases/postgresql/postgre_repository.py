@@ -150,7 +150,6 @@ class Postgre_Repository:
         seq = text("""SELECT MAX(show_id) as cnt FROM tv_shows""")
         result = self.db.session.execute(seq)
         last_show_id = result.fetchall()
-        print(last_show_id)
         return last_show_id[0].cnt
 
     def get_show_by_title(self, title):
@@ -160,13 +159,9 @@ class Postgre_Repository:
         return self.db.session.query(Users.user_id, Users.username).filter(Users.username == username).first()
 
     def add_new_review(self, title, username, comment, rating):
-        print(title)
         show_id = self.get_show_by_title(title).show_id
-        print(show_id)
         user_id = self.get_user_by_username(username).user_id
-        print(user_id)
         review_id = len(Reviews.query.all()) + 1
-        print(review_id)
         review_date = datetime.now().date()
 
         review = Reviews(review_id=review_id, show_id=show_id, user_id=user_id, rating=rating,

@@ -1249,7 +1249,7 @@ pre code {
     float: left;
   }
   .col-lg-12 {
-    width: 100%;
+    width: 800px;
   }
   .col-lg-11 {
     width: 91.66666667%;
@@ -1267,19 +1267,21 @@ pre code {
     width: 58.33333333%;
   }
   .col-lg-6 {
-    width: 50%;
+    width: 800px;
   }
   .col-lg-5 {
     width: 41.66666667%;
   }
   .col-lg-4 {
     width: 33.33333333%;
+    padding-left: 25px;
   }
   .col-lg-3 {
     width: 25%;
   }
   .col-lg-2 {
     width: 16.66666667%;
+    padding-left: 25px;
   }
   .col-lg-1 {
     width: 8.33333333%;

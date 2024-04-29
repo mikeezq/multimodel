@@ -18,12 +18,13 @@ def create_serial_view(request):
     actor = request.form['actors']
     duration = request.form['duration']
     role = request.form['role']
+    description = request.form['description']
     image = request.files['image']
 
     show_id = postgre_repo.get_last_show_id() + 1
     studio_id = Studios.query.filter(Studios.name == studio_name).first().studio_id
     tv_show = TV_Shows(show_id=show_id, title=title, release_date=release_date,
-                       duration=duration, genre=genre, studio_id=studio_id)
+                       duration=duration, genre=genre, studio_id=studio_id, description=description)
 
     director_id = Directors.query.filter(Directors.name == director).first().director_id
     tv_show_directors = TV_ShowDirectors(show_id=show_id, director_id=director_id)

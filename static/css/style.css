@@ -773,6 +773,7 @@ textarea:hover {
 #footers img {
 	float: left;
 	margin-right: 10px;
+	padding-left: 25px;
 }
 
 #footers .footer-menu li {
@@ -782,7 +783,7 @@ textarea:hover {
 }
 
 #footers .footer-menu a {
-	font-size: 16px;
+	font-size: 15px;
 	color: #fff;
 	text-decoration: none;
 	float: left;

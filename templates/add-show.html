@@ -138,11 +138,14 @@
                     {% endfor %}
                 </select>
 
-                <label for="duration">Роль:</label>
+                <label for="role">Роль:</label>
+                <input type="text" id="role" name="role" style="color: #000000;" required>
+
+                <label for="duration">Продолжительность:</label>
                 <input type="text" id="duration" name="duration" style="color: #000000;" required>
 
-                <label for="role">Продолжительность:</label>
-                <input type="text" id="role" name="role" style="color: #000000;" required>
+                <label for="description">Описание фильма:</label>
+                <textarea id="description" name="description" rows="4" style="color: #000000;" required placeholder="Описание фильма (не более 5000 символов)"></textarea>
 
                 <label for="image" >Обложка сериала:</label>
                 <input type="file" id="image" name="image" required>
@@ -166,11 +169,11 @@
                     </div>
                     <div class="col-lg-6 hidden-xs hidden-sm">
                         <ul class="footer-menu">
-                            <li><a href="#">Главная</a></li>
-                            <li><a href="#">Добавить фильм</a></li>
-                            <li><a href="#">Личный кабинет</a></li>
+                            <li><a href="/main">Главная</a></li>
+                            <li><a href="/add-show">Добавить ТВ-сериал</a></li>
+                            <li><a href="/cabinet">Личный кабинет</a></li>
                             {% if is_admin %}
-                            <li><a href="#">Кабинет админа</a></li>
+                            <li><a href="/admin">Кабинет админа</a></li>
                             {% endif %}
                         </ul>
                     </div>

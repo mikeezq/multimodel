@@ -9,6 +9,7 @@ class TV_Shows(db.Model):
     release_date = db.Column(db.Date)
     duration = db.Column(db.Integer)
     genre = db.Column(db.String(50))
+    description = db.Column(db.String(5000))
     studio_id = db.Column(db.Integer, db.ForeignKey('studios.studio_id'))
 
 
