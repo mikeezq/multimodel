@@ -165,7 +165,10 @@ def add_show():
     if request.method == "POST":
         try:
             create_serial_view(request)
-            if session['role'] != 'user':
+            actors = request.form.getlist('actors[]')
+            if session['role'] == 'user' or len(set(actors)) != len(actors):
+                pass
+            else:
                 flash('Сериал успешно добавлен.', 'success')
         except Exception:
             flash('Не удалось добавить сериал.', 'error')

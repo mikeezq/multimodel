@@ -18,6 +18,11 @@ def create_serial_view(request):
     director = request.form['director_name']
     actors = request.form.getlist('actors[]')
     roles = request.form.getlist('roles[]')
+
+    if len(set(actors)) != len(actors):
+        flash("Актеры должны быть уникальны", "error")
+        return
+
     duration = request.form['duration']
 
     description = request.form['description']
