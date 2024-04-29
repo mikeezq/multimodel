@@ -101,7 +101,6 @@ def login():
             ans, status_code, username = signin(request.form)
             if status_code == 200:
                 session['login'] = True
-                print(admins, moderators)
                 session['username'] = username
                 if username in [admin.username for admin in admins]:
                     session['role'] = 'admin'
@@ -109,11 +108,11 @@ def login():
                     session['role'] = 'moderator'
                 else:
                     session['role'] = 'user'
-                print(session)
                 return redirect(url_for('main'))
-            return ans, status_code
+            return render_template('login.html')
         elif action == "signup":
-            return signup(request.form)
+            signup(request.form)
+            return render_template('login.html')
         else:
             return "Password will be reset"
 
@@ -166,7 +165,8 @@ def add_show():
     if request.method == "POST":
         try:
             create_serial_view(request)
-            flash('Сериал успешно добавлен.', 'success')
+            if session['role'] != 'user':
+                flash('Сериал успешно добавлен.', 'success')
         except Exception:
             flash('Не удалось добавить сериал.', 'error')
 

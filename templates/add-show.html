@@ -73,6 +73,11 @@
                     {% endif %}
                 </ul>
             </div><!-- /.navbar-collapse -->
+             <div class="header-exit-button">
+              <a href="{{ url_for('logout') }}" class="btn btn-danger btn-sm">
+                <i class="fa fa-sign-out" aria-hidden="true"></i> Выход
+              </a>
+            </div>
         </div><!-- /.container-fluid -->
     </nav>
     </div>
@@ -91,6 +96,17 @@
         </div>
 
     </div><!--End About-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+      $('#add-actor-role').click(function() {
+        var newActorRolePair = $('.actor-role-pair:first').clone();
+        newActorRolePair.find('select').val('');
+        newActorRolePair.find('input').val('');
+        $('#actors-roles-container').append(newActorRolePair);
+      });
+    });
+    </script>
 
 
     <div class="container">
@@ -131,15 +147,21 @@
                     {% endfor %}
                 </select>
 
-                <label for="actors">Актёры:</label>
-                <select id="actors" name="actors" required>
-                    {% for actor in shows_data.actors %}
+                <div id="actors-roles-container">
+                  <div class="actor-role-pair">
+                    <label for="actors[]">Актёр:</label>
+                    <select id="actors[]" name="actors[]" required>
+                      {% for actor in shows_data.actors %}
                         <option value="{{ actor.name }}">{{ actor.name }}</option>
-                    {% endfor %}
-                </select>
+                      {% endfor %}
+                    </select>
 
-                <label for="role">Роль:</label>
-                <input type="text" id="role" name="role" style="color: #000000;" required>
+                    <label for="roles[]">Роль:</label>
+                    <input type="text" id="roles[]" name="roles[]" style="color: #000000; height: 24px;" required>
+                  </div>
+                </div>
+                <button type="button" id="add-actor-role">Добавить актёра и роль</button>
+                <br>
 
                 <label for="duration">Продолжительность:</label>
                 <input type="text" id="duration" name="duration" style="color: #000000;" required>

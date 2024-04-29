@@ -67,9 +67,16 @@
                     <li class="links"><a class="scroll" href="/main">Главная</a></li>
                     <li class="links"><a class="scroll" href="/add-show">Добавить ТВ-сериал</a></li>
                     <li class="links"><a class="scroll" href="/cabinet">Личный кабинет</a></li>
+                    {% if is_admin %}
                     <li class="links"><a class="scroll" href="/admin">Кабинет админа</a></li>
+                    {% endif %}
                 </ul>
             </div><!-- /.navbar-collapse -->
+            <div class="header-exit-button">
+              <a href="{{ url_for('logout') }}" class="btn btn-danger btn-sm">
+                <i class="fa fa-sign-out" aria-hidden="true"></i> Выход
+              </a>
+            </div>
         </div><!-- /.container-fluid -->
     </nav>
     </div>
@@ -137,7 +144,7 @@
         <div class="review-form">
             <h2>Оставить отзыв:</h2>
             <form action="{{ url_for('submit_review', title=show_info.title) }}" method="post">
-                <textarea name="review" rows="4" required placeholder="Введите ваш отзыв здесь..."></textarea>
+                <textarea name="review" rows="4" required placeholder="Введите ваш отзыв здесь..." style="color: #000000;"></textarea>
                 <input type="number" name="rating" step="0.1" min="0.0" max="10.0" required placeholder="Рейтинг от 0.0 до 10.0">
                 <br></br>
                 <input type="submit" value="Отправить">

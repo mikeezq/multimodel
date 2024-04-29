@@ -24,6 +24,7 @@ input[type="file"] {
   margin-bottom: 20px;
   border: 1px solid #000000;
   border-radius: 5px;
+  height: 24px;
 }
 
 input[type="submit"] {
@@ -49,3 +50,31 @@ input[type="text"] {
   flex-wrap: wrap;
   align-content: center;
 }
+
+.actor-role-pair {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px; /* Или любой другой отступ, который вы хотите использовать */
+}
+
+.form-field {
+  flex: 1; /* Это позволяет полям занимать равное пространство */
+  margin-right: 5px; /* Или любой другой отступ между полями */
+}
+
+.form-field:last-child {
+  margin-right: 0; /* Убираем отступ с последнего поля в ряду */
+}
+
+.actor-role-pair label, .actor-role-pair select, .actor-role-pair input {
+  display: inline-block; /* для отображения в одну линию */
+  width: auto; /* или установите конкретную ширину, если нужно */
+  margin-right: 10px; /* добавляет отступ справа */
+  height: 24px;
+}
+
+#add-actor-role {
+  display: block; /* отобразить кнопку на новой строке */
+  margin-top: 10px; /* добавить отступ сверху */
+}
+

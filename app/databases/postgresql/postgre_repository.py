@@ -14,7 +14,7 @@ reset_sequence_sql_privileged_users = text("""
 """)
 
 reset_sequence_sql_tv_shows = text("""
-    SELECT setval('tv_shows_user_id_seq', (SELECT MAX(show_id) FROM tv_shows));
+    SELECT setval('tv_shows_show_id_seq', (SELECT MAX(show_id) FROM tv_shows));
 """)
 
 get_show_info_sql = text("""
